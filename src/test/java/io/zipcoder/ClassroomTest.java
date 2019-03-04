@@ -52,4 +52,72 @@ public class ClassroomTest {
         Assert.assertEquals(expected, actual);
 
     }
+
+    @Test
+    public void removeStudentTest() {
+        // : Given
+        int maxNumberOfStudents = 2;
+        Classroom classroom = new Classroom(maxNumberOfStudents);
+        Double[] examScores = {100.0, 150.0, 250.0, 0.0};
+        ArrayList<Double> scores = new ArrayList<>(Arrays.asList(examScores));
+        Student student = new Student("Leon", "Hunter", scores);
+        Student student2 = new Student("Bob", "Barker", scores);
+
+        // When
+        classroom.add(student);
+        classroom.add(student2);
+        classroom.removeStudent("Leon", "Hunter");
+        int expected = 1;
+        Student[] studentList = classroom.getStudents();
+        int actual = 0;
+        for (Student s : studentList
+        ) {
+            if (s != null) {
+                actual++;
+
+            }
+        // Then
+        Assert.assertEquals(expected, actual);
+        }
+    }
+
+    @Test
+    public void getStudentsByScoreTest(){
+// : Given
+        int maxNumberOfStudents = 4;
+        Classroom classroom = new Classroom(maxNumberOfStudents);
+        Double[] s1s = {100.0, 150.0, 250.0, 0.0};
+        Double[] s2s = {100.0, 150.0, 250.0, 0.0};
+        Double[] s3s = {90.0, 150.0, 210.0, 0.0};
+        Double[] s4s = {100.0, 110.0, 190.0, 0.0};
+        ArrayList<Double> s1sal = new ArrayList<>(Arrays.asList(s1s));
+        ArrayList<Double> s2sal = new ArrayList<>(Arrays.asList(s2s));
+        ArrayList<Double> s3sal = new ArrayList<>(Arrays.asList(s3s));
+        ArrayList<Double> s4sal = new ArrayList<>(Arrays.asList(s4s));
+        Student student1 = new Student("Leon", "Hunter", s1sal);
+        Student student2 = new Student("Bob", "Barker", s2sal);
+        Student student3 = new Student("Betty", "Boop", s3sal);
+        Student student4 = new Student("Gerald", "Ford", s4sal);
+        String expected = "Bob Barker - 125\nLeon Hunter - 125\nBetty Boop - 113\nGerald Ford - 100\n";
+
+        // When
+        classroom.add(student1);
+        classroom.add(student2);
+        classroom.add(student3);
+        classroom.add(student4);
+
+        Student[] gradeReport = classroom.getStudentsByScore();
+
+        String actual = "";
+        for (Student s : gradeReport
+             ) {
+            actual = actual + String.format("%s %s - %.0f\n", s.getFirstName(), s.getLastName(), s.getAverageExamScore());
+        }
+        Assert.assertEquals(expected, actual);
+
+        }
+
+    @Test
+    public void getGradeBook() {
+    }
 }
