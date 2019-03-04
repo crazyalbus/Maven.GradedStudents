@@ -3,8 +3,7 @@ package io.zipcoder;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class ClassroomTest {
 
@@ -119,5 +118,38 @@ public class ClassroomTest {
 
     @Test
     public void getGradeBook() {
+        int maxNumberOfStudents = 4;
+        Classroom classroom = new Classroom(maxNumberOfStudents);
+        Double[] s1s = {100.0, 90.0, 87.0, 92.0};
+        Double[] s2s = {100.0, 90.0, 87.0, 92.0};
+        Double[] s3s = {90.0, 100.0, 79.0, 88.0};
+        Double[] s4s = {69.0, 60.0, 75.0, 70.0};
+        ArrayList<Double> s1sal = new ArrayList<>(Arrays.asList(s1s));
+        ArrayList<Double> s2sal = new ArrayList<>(Arrays.asList(s2s));
+        ArrayList<Double> s3sal = new ArrayList<>(Arrays.asList(s3s));
+        ArrayList<Double> s4sal = new ArrayList<>(Arrays.asList(s4s));
+        Student student1 = new Student("Leon", "Hunter", s1sal);
+        Student student2 = new Student("Bob", "Barker", s2sal);
+        Student student3 = new Student("Betty", "Boop", s3sal);
+        Student student4 = new Student("Gerald", "Ford", s4sal);
+
+        // When
+        classroom.add(student1);
+        classroom.add(student2);
+        classroom.add(student3);
+        classroom.add(student4);
+
+        Set<Map.Entry<String, String>> gradeBook = classroom.getGradeBook().entrySet();
+
+        String actual = "";
+
+
+
+        for (Map.Entry<String, String> entry : gradeBook
+             ) {
+            actual = actual + String.format("%S: %S\n",entry.getValue(), entry.getKey());
+        }
+        System.out.println(actual);
+
     }
 }

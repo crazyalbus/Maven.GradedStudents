@@ -76,20 +76,30 @@ public class Classroom {
         Comparator<Student> compareGrades = new GradeComparator().reversed();
         Arrays.sort(students, compareLastName);
         Arrays.sort(students,compareGrades);
+
         return students;
 
     }
 
-    public Map<String, Student> getGradeBook() {
+    public Map<String, String> getGradeBook() {
 
+        Student[] gradesForReport = getStudentsByScore();
+
+        Map<String, String> gradeBook = new HashMap<>();
+
+        for (Student s : gradesForReport) {
+            if      (s.getAverageExamScore() >= 90) {
+                        gradeBook.put(s.getLastName() + ", " + s.getFirstName(), "A"); continue;}
+            else if (s.getAverageExamScore() >= 70) {
+                        gradeBook.put(s.getLastName() + ", " + s.getFirstName(), "B"); continue;}
+            else if (s.getAverageExamScore() >= 50) {
+                        gradeBook.put(s.getLastName() + ", " + s.getFirstName(), "C"); continue;}
+            else if (s.getAverageExamScore() >= 10) {
+                        gradeBook.put(s.getLastName() + ", " + s.getFirstName(), "D"); continue;}
+            else    { gradeBook.put(s.getLastName() + ", " + s.getFirstName(), "F"); continue;}
+        }
+        return gradeBook;
     }
-//    The class Classroom should define a method getGradeBook() which returns a mapping of Student objects to a respective letter grade determined by creating a grading curve such that
-//    An A is awarded to students whose class average is in the upper 10th percentile.
-//    A B is awarded to students whose class average falls between the 11th and 29th percentile.
-//    A C is awarded to students whose class average falls between the 30th and 50th percentile.
-//    A D is awarded to students whose class average falls between the 51st and 89th percentile.
-//    An F is awarded to students whose class average is in the lower 11th percentile.
-//
 
 
 }
